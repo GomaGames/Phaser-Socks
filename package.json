@@ -1,0 +1,23 @@
+{
+  "name": "phaser-socks",
+  "version": "1.0.0",
+  "description": "Phaser game with websockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GomaGames/Phaser-Socks.git"
+  },
+  "keywords": [
+    "phaser",
+    "websockets"
+  ],
+  "author": "Jon Borgonia <jon@gomagames.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GomaGames/Phaser-Socks/issues"
+  },
+  "homepage": "https://github.com/GomaGames/Phaser-Socks#readme"
+}
