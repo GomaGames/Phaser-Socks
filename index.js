@@ -47,10 +47,21 @@ function clientReceiveMessage( message ){
   }
 }
 
+function clientDisconnect(){
+  if( this.username !== null ){
+    if( players.has(this.username) ){
+      players.delete(this.username);
+    }
+  }
+  console.info(`Client username:'${this.username}' has disconnected.`);
+}
+
 wss.on('connection', client => {
   client.username = null;
 
   client.on('message', clientReceiveMessage.bind(client));
+
+  client.on('close', clientDisconnect.bind(client));
 
 });
 
