@@ -24,7 +24,11 @@ function clientHandleOp( msg ){
       this.sendOp(OP.ERROR, { error });
       break;
     case OP.CHAT:
-
+      let { username } = this;
+      let { message } = msg.payload;
+      players.forEach( (player, playerUsername, map) => {
+        player.sendOp(OP.CHAT, { username, message });
+      });
       break;
     default:
       error = `Unknown OP received. Server does not understand: '${msg.OP}'`;
