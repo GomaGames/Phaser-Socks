@@ -1,6 +1,7 @@
 const ERROR = 'ERROR';
 const REGISTER = 'REGISTER';
 const REGISTERACK = 'REGISTERACK';
+const CHAT = 'CHAT';
 
 const parse = message => {
   let parsedMessage = JSON.parse(message);
@@ -21,4 +22,5 @@ module.exports = {
   ERROR,
   REGISTER,
   REGISTERACK,
+  CHAT,
 };
