@@ -9,6 +9,11 @@
     game.stage.backgroundColor = CFG.BG_COLOR;
 
     Game.cursors = game.input.keyboard.createCursorKeys();
+
+    game.state.add( Game.States.Registration.STATE_KEY, Game.States.Registration );
+    game.state.add( Game.States.World.STATE_KEY, Game.States.World );
+    game.state.start( Game.States.Registration.STATE_KEY );
+
   };
 
   const update = _ => {
