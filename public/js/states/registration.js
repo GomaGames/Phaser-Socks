@@ -1,4 +1,4 @@
-((Phaser, Game, CFG, document) => {
+((Phaser, Game, CFG, WS, OP, document) => {
   // get or create Game module
   if( Game === undefined ){
     Game = window.Game = { States: {} };
@@ -22,7 +22,12 @@
     preload : () => {
 
     },
-    create : () => {
+    create : function(){
+
+      WS.Client.addEventListener(WS.Event.message, this.onClientMessage);
+      WS.Client.addEventListener(WS.Event.open, this.onClientConnect);
+      WS.Client.addEventListener(WS.Event.error, this.onClientError);
+      WS.Client.addEventListener(WS.Event.close, this.onClientClose);
 
       // create a form using DOM to capture user input
       formContainer = createElement('div', { 'class' : 'registration-form-container'});
@@ -51,15 +56,62 @@
 
       form.addEventListener('submit', event => {
         event.preventDefault();
-        field1Input.value()
+
+        // validate username
+        if(field1Input.value.length === 0){
+          window.alert('You must enter a username');
+          return;
+        }
+
+        const chosenAvatar = Array.from(document.getElementsByName("avatar")).find(r => r.checked);
+        if(chosenAvatar === undefined){
+          window.alert('You must choose an avatar');
+          return;
+        }
+
+        this.register(field1Input.value, chosenAvatar.value);
       });
+    },
+    register : (username, avatarId) => {
+
+      WS.Send.Register(username, avatarId);
+      Game.RegisterPlayer(username, avatarId);
+
+    },
+    registerSuccess : _ => {
+      Game.States.Registration.game.state.start( Game.States.World.STATE_KEY );
+    },
+    onClientMessage : ({ data }) => {
+      const msg = OP.parse(data);
+      if( msg.OP === OP.REGISTERACK ){
+        Game.States.Registration.registerSuccess();
+      } else if(msg.OP === OP.ERROR){
+        // # TODO display error to user
+        console.error(msg.payload);
+      } else {
+        console.error(msg.payload);
+      }
+    },
+    onClientConnect : () => {
+      Game.States.Registration.game.state.start( Game.States.Registration.STATE_KEY );
+    },
+    onClientError : error => {
+      console.error(error);
+      Game.States.Registration.game.state.start( Game.States.Disconnected.STATE_KEY );
+    },
+    onClientClose : () => {
+      Game.States.Registration.game.state.start( Game.States.Disconnected.STATE_KEY );
     },
     update : () => {
 
     },
     shutdown : () => {
       document.body.removeChild(formContainer);
+      Game.WS.Client.removeEventListener(WS.Event.message, this.onClientMessage);
+      Game.WS.Client.removeEventListener(WS.Event.open, this.onClientConnect);
+      Game.WS.Client.removeEventListener(WS.Event.error, this.onClientError);
+      Game.WS.Client.removeEventListener(WS.Event.close, this.onClientClose);
     },
   });
 
-})(window.Phaser, window.Game, window.Game.Configuration, window.document);
+})(window.Phaser, window.Game, window.Game.Configuration, window.Game.WS, window.OP,  window.document);

@@ -14,7 +14,6 @@
    *   error
    *   message
    */
-
   Game.WS = {
     Client : null,
     Connect : _ => {
@@ -25,6 +24,11 @@
       close : 'close',
       error : 'error',
       message : 'message'
+    },
+    Send : {
+      Register : (username, avatarId) => {
+        Game.WS.Client.send( OP.create( OP.REGISTER, { username, avatarId } ) );
+      }
     }
   };
 

@@ -14,25 +14,29 @@
       this.game.add.text(240, 400, 'Connecting to server', { fill: '#232323' });
 
       WS.Connect();
-      WS.Client.addEventListener(WS.Event.open, this.onConnect.bind(this));
-      WS.Client.addEventListener(WS.Event.error, error => {
-        console.error(error);
-        this.game.state.start( Game.States.Disconnected.STATE_KEY );
-      });
-      WS.Client.addEventListener(WS.Event.close, _ => {
-        this.game.state.start( Game.States.Disconnected.STATE_KEY );
-      });
+      WS.Client.addEventListener(WS.Event.open, this.onClientConnect);
+      WS.Client.addEventListener(WS.Event.error, this.onClientError);
+      WS.Client.addEventListener(WS.Event.close, this.onClientClose);
 
     },
-    onConnect : function(){
-      this.game.state.start( Game.States.Registration.STATE_KEY );
+    onClientConnect : () => {
+      Game.States.Waiting.game.state.start( Game.States.Registration.STATE_KEY );
+    },
+    onClientError : error => {
+      console.error(error);
+      Game.States.Waiting.game.state.start( Game.States.Disconnected.STATE_KEY );
+    },
+    onClientClose : () => {
+      Game.States.Waiting.game.state.start( Game.States.Disconnected.STATE_KEY );
     },
     update : () => {
 
     },
     shutdown : () => {
 
-      Game.WS.Client.removeEventListener('open', this.onConnect);
+      Game.WS.Client.removeEventListener(WS.Event.open, this.onClientConnect);
+      Game.WS.Client.removeEventListener(WS.Event.error, this.onClientError);
+      Game.WS.Client.removeEventListener(WS.Event.close, this.onClientClose);
 
     },
   });
