@@ -10,10 +10,10 @@
   Game.Configuration = {
     GAME_CONTAINER_ID : 'game-container',
     BG_COLOR : '#129F56',
-    STAGE_WIDTH : 1024,
-    STAGE_HEIGHT : 768,
-    GAME_WIDTH : 2048,
-    GAME_HEIGHT : 2048,
+    STAGE_WIDTH,
+    STAGE_HEIGHT,
+    GAME_WIDTH : STAGE_WIDTH,
+    GAME_HEIGHT : STAGE_HEIGHT,
     CAMERA_LERP : 0.25,
     ASSETS : {
       GFX : 'GFX',

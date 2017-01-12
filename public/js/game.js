@@ -12,7 +12,10 @@
 
     game.state.add( Game.States.Registration.STATE_KEY, Game.States.Registration );
     game.state.add( Game.States.World.STATE_KEY, Game.States.World );
-    game.state.start( Game.States.Registration.STATE_KEY );
+    game.state.add( Game.States.Waiting.STATE_KEY, Game.States.Waiting );
+    game.state.add( Game.States.Disconnected.STATE_KEY, Game.States.Disconnected );
+
+    game.state.start( Game.States.Waiting.STATE_KEY );
 
   };
 
