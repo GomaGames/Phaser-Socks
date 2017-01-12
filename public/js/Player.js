@@ -15,6 +15,11 @@
   };
 
   Game.Player = class{
+    constructor(game, x, y){
+      this.game = game;
+      this.username = registeredPlayer.username;
+      this.sprite = this.game.add.sprite(x, y, `graphic-${registeredPlayer.avatarId}`);
+    }
   };
 
 })(window.Phaser, window.Game, window.Game.Configuration, window.WebSocket, window.OP);
