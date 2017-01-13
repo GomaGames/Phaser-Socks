@@ -33,6 +33,10 @@
 
       this.player = new Game.Player(this.game, Math.random()*CFG.GAME_WIDTH, Math.random()*CFG.GAME_HEIGHT);
 
+      this.game.input.onTap.add((e) => {
+        this.player.moveTo(this.input.activePointer);
+      });
+
     },
     update : () => {
 
