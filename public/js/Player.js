@@ -49,9 +49,11 @@
     }
     chat(message){
       this.chatText.text = message;
-      this.game.timer.add(CFG.CHAT_DURATION, _ => {
+      const timer = this.game.time.create();
+      timer.add(CFG.CHAT_DURATION, function(){
         this.chatText.text = '';
-      });
+      }, this);
+      timer.start();
     }
     update(){
 

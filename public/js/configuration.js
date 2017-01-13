@@ -15,9 +15,7 @@
     GAME_WIDTH : STAGE_WIDTH,
     GAME_HEIGHT : STAGE_HEIGHT,
     CAMERA_LERP : 0.25,
-    ASSETS : {
-      GFX : 'GFX',
-    }
+    CHAT_DURATION : 3000
   };
 
 })(window.Game);
