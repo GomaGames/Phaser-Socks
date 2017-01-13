@@ -1,11 +1,16 @@
-((Phaser, Game, CFG, WS, OP) => {
+((Phaser, Game, CFG, WS, OP, document) => {
   // get or create Game module
   if( Game === undefined ){
     Game = window.Game = { States: {} };
   }
 
+  const { createElement } = Game.Utils;
+
   const RED_SIDE_SIZE = 400;
   const BLUE_SIDE_SIZE = 400;
+
+  let formContainer;
+  let chatMessageInput;
 
   Game.States.World = Object.assign( new Phaser.State(), {
     STATE_KEY : 'World',
@@ -49,6 +54,22 @@
       WS.Client.addEventListener(WS.Event.error, this.onClientError);
       WS.Client.addEventListener(WS.Event.close, this.onClientClose);
       WS.Send.EnterWorld();
+
+      /*
+       * Setup DOM controls for user input
+       */
+      formContainer = createElement('div', { 'class' : 'chat-form-container'});
+      const form = createElement('form', { 'class' : 'chat-form'});
+      const field1Container = createElement('div', { 'class' : 'chat-form-message-container'});
+      chatMessageInput = createElement('input', { type : 'text', placeholder : 'Say something to room...'});
+      const submitBtn = createElement('button', { type : 'submit'}, 'Send');
+
+      field1Container.appendChild(chatMessageInput);
+      form.appendChild(field1Container);
+      form.appendChild(submitBtn);
+      formContainer.appendChild(form);
+      document.body.insertBefore(formContainer, document.getElementById(CFG.GAME_CONTAINER_ID));
+      form.addEventListener('submit', this.chatFormSubmit.bind(this));
     },
     enter : function(playerUsernamesAvatars){
       playerUsernamesAvatars
@@ -85,6 +106,21 @@
     playerMove : function({ username, position  }) {
       this.players.get(username).moveTo(position);
     },
+    playerChat : function({ username, message }) {
+      if(username === this.player.username){
+        this.player.chat(message);
+      }else{
+        this.players.get(username).chat(message);
+      }
+    },
+    chatFormSubmit : function(event){
+      event.preventDefault();
+
+      WS.Send.Chat(chatMessageInput.value);
+      // this.player.chat(chatMessageInput.value);
+
+      chatMessageInput.value = '';
+    },
     onClientMessage : ({ data }) => {
       const msg = OP.parse(data);
       switch( msg.OP ){
@@ -99,6 +135,9 @@
           break;
         case OP.MOVE_TO:
           Game.States.World.playerMove(msg.payload);
+          break;
+        case OP.CHAT:
+          Game.States.World.playerChat(msg.payload);
           break;
         case OP.ERROR:
           // # TODO display error to user
@@ -126,8 +165,9 @@
       WS.Client.removeEventListener(WS.Event.open, this.onClientConnect);
       WS.Client.removeEventListener(WS.Event.error, this.onClientError);
       WS.Client.removeEventListener(WS.Event.close, this.onClientClose);
+      document.body.removeChild(formContainer);
     },
   });
 
-})(window.Phaser, window.Game, window.Game.Configuration, window.Game.WS, window.OP);
+})(window.Phaser, window.Game, window.Game.Configuration, window.Game.WS, window.OP, window.document);
 

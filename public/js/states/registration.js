@@ -4,16 +4,7 @@
     Game = window.Game = { States: {} };
   }
 
-  const createElement = (name, attrs, innerText = null) => {
-    let newElement = document.createElement(name);
-    Object.keys(attrs).forEach( attr => {
-      newElement.setAttribute(attr, attrs[attr]);
-    });
-    if(innerText !== null){
-      newElement.appendChild(document.createTextNode(innerText));
-    }
-    return newElement;
-  };
+  const { createElement } = Game.Utils;
 
   let formContainer;
 

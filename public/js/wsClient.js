@@ -35,6 +35,9 @@
       EnterWorld : _ => {
         Game.WS.Client.send( OP.create( OP.ENTER_WORLD ) );
       },
+      Chat : message => {
+        Game.WS.Client.send( OP.create( OP.CHAT, { message } ) );
+      },
     }
   };
 
