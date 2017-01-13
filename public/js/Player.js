@@ -55,15 +55,18 @@
       }, this);
       timer.start();
     }
+    stopMoving(){
+      this.sprite.body.velocity.x=0;
+      this.sprite.body.velocity.y=0;
+      this.destination = null;
+    }
     update(){
 
       if( this.destination !== null ){
         var dist = this.game.physics.arcade.distanceToXY(this.sprite, this.destination.x, this.destination.y);
 
         if( dist > -10 && dist < 10 ) {
-          this.sprite.body.velocity.x=0;
-          this.sprite.body.velocity.y=0;
-          this.destination = null;
+          this.stopMoving();
         }
 
       }

@@ -12,6 +12,8 @@
   let formContainer;
   let chatMessageInput;
 
+  Game.playersGroup = null;
+
   Game.States.World = Object.assign( new Phaser.State(), {
     STATE_KEY : 'World',
     preload : function() {
@@ -38,6 +40,8 @@
       this.game.load.images(assets);
     },
     create : function() {
+
+      Game.playersGroup = this.game.add.group();
 
       this.players = new Map(); // other players
       this.player = new Game.Player(this.game,
@@ -85,6 +89,7 @@
               player
             )
           );
+          Game.playersGroup.add(this.players.get(player.username).sprite);
         });
     },
     newPlayer : function({ username, avatarId }){
@@ -98,6 +103,7 @@
           { username, avatarId }
         )
       );
+      Game.playersGroup.add(this.players.get(username).sprite);
     },
     removePlayer : function({ username }){
       this.players.get(username).sprite.destroy();
@@ -117,7 +123,6 @@
       event.preventDefault();
 
       WS.Send.Chat(chatMessageInput.value);
-      // this.player.chat(chatMessageInput.value);
 
       chatMessageInput.value = '';
     },
@@ -161,6 +166,7 @@
 
     },
     shutdown : function(){
+      Game.playersGroup.destroy();
       WS.Client.removeEventListener(WS.Event.message, this.onClientMessage);
       WS.Client.removeEventListener(WS.Event.open, this.onClientConnect);
       WS.Client.removeEventListener(WS.Event.error, this.onClientError);
