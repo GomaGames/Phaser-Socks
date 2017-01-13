@@ -18,28 +18,30 @@
     STATE_KEY : 'World',
     preload : function() {
       const assets = [
+        'bg',
         'game_wall',
-        'graphic-02',
-        'graphic-03',
-        'graphic-04',
-        'graphic-05',
-        'graphic-06',
-        'graphic-07',
-        'graphic-08',
-        'graphic-09',
-        'graphic-10',
-        'graphic-25',
-        'graphic-26',
-        'graphic-30',
-        'graphic-33',
-        'graphic-34',
-        'graphic-38',
-        'graphic-39'
+        'person-02',
+        'person-03',
+        'person-04',
+        'person-05',
+        'person-06',
+        'person-07',
+        'person-08',
+        'person-09',
+        'person-10',
+        'person-25',
+        'person-26',
+        'person-30',
+        'person-33',
+        'person-34',
+        'person-38',
+        'person-39'
       ];
       this.game.load.path = 'assets/';
       this.game.load.images(assets);
     },
     create : function() {
+      this.game.add.image(0,0, 'bg');
 
       Game.playersGroup = this.game.add.group();
 

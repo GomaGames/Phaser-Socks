@@ -25,7 +25,7 @@
       this.currentPlayer = currentPlayer;
       this.speed = DEFAULT_SPEED;
       this.destination = null;
-      this.sprite = this.game.add.sprite(x, y, `graphic-${this.avatarId}`);
+      this.sprite = this.game.add.sprite(x, y, `person-${this.avatarId}`);
       this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
       this.usernameText = new Phaser.Text(this.game, -10, -16, this.username, { fontSize:'14px', fill: '#F0F3F0', boundsAlignH : 'center', boundsAlignV : 'center' });
       this.chatText = new Phaser.Text(this.game, -50, 36, '', { fontSize:'16px', fill: '#F0F0F9', fontWeight: 'normal', boundsAlignH : 'center', boundsAlignV : 'center' });
