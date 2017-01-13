@@ -25,6 +25,7 @@
   const ENTER_WORLD = 'ENTER_WORLD';
   const ENTER_WORLD_ACK = 'ENTER_WORLD_ACK';
   const NEW_PLAYER = 'NEW_PLAYER';
+  const REMOVE_PLAYER = 'REMOVE_PLAYER';
   const CHAT = 'CHAT';
   const MOVE_TO = 'MOVE_TO';
 
@@ -40,6 +41,7 @@
     ENTER_WORLD,
     ENTER_WORLD_ACK,
     NEW_PLAYER,
+    REMOVE_PLAYER,
     CHAT,
     MOVE_TO,
   };

@@ -55,7 +55,6 @@
         .filter( player => player.username !== this.player.username )
         .forEach( player => {
           // stick them somewhere in the middle
-          console.log('player', player);
           this.players.set(player.username,
             new Game.Player(
               this.game,
@@ -79,6 +78,10 @@
         )
       );
     },
+    removePlayer : function({ username }){
+      this.players.get(username).sprite.destroy();
+      this.players.delete(username);
+    },
     playerMove : function({ username, position  }) {
       this.players.get(username).moveTo(position);
     },
@@ -90,6 +93,9 @@
           break;
         case OP.NEW_PLAYER:
           Game.States.World.newPlayer(msg.payload);
+          break;
+        case OP.REMOVE_PLAYER:
+          Game.States.World.removePlayer(msg.payload);
           break;
         case OP.MOVE_TO:
           Game.States.World.playerMove(msg.payload);

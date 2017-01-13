@@ -22,7 +22,6 @@
       this.game = game;
       this.username = currentPlayer ? registeredPlayer.username : username;
       this.avatarId = currentPlayer ? registeredPlayer.avatarId : avatarId;
-      console.log(this.username, this.avatarId);
       this.currentPlayer = currentPlayer;
       this.speed = DEFAULT_SPEED;
       this.destination = null;
