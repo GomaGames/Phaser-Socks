@@ -1,4 +1,4 @@
-((Phaser, Game, CFG, WebSocket, OP) => {
+((Phaser, Game, CFG, WS, OP) => {
   // get or create Game module
   if( Game === undefined ){
     Game = window.Game = { States: {} };
@@ -18,21 +18,29 @@
   };
 
   Game.Player = class{
-    constructor(game, x, y){
+    constructor(game, x, y, currentPlayer, { username, avatarId } = {}){
       this.game = game;
-      this.username = registeredPlayer.username;
+      this.username = currentPlayer ? registeredPlayer.username : username;
+      this.avatarId = currentPlayer ? registeredPlayer.avatarId : avatarId;
+      console.log(this.username, this.avatarId);
+      this.currentPlayer = currentPlayer;
       this.speed = DEFAULT_SPEED;
       this.destination = null;
-      this.sprite = this.game.add.sprite(x, y, `graphic-${registeredPlayer.avatarId}`);
+      this.sprite = this.game.add.sprite(x, y, `graphic-${this.avatarId}`);
       this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
 
       this.sprite.update = this.update.bind(this);
     }
     moveTo({x, y}){
+      if(this.currentPlayer){
+        WS.Send.MoveTo({x, y});
+      }
+
       // adjust coordinates to center player on point
       ( {x, y} = {x:x-this.sprite.width/2, y:y-this.sprite.width/2} );
       this.destination = {x, y};
       this.game.physics.arcade.moveToXY(this.sprite, x, y, this.speed);
+
     }
     update(){
 
@@ -49,4 +57,4 @@
     }
   };
 
-})(window.Phaser, window.Game, window.Game.Configuration, window.WebSocket, window.OP);
+})(window.Phaser, window.Game, window.Game.Configuration, window.Game.WS, window.OP);

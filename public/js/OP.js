@@ -1,11 +1,4 @@
 (function(){
-  /*
-   * OP codes
-   */
-  const ERROR = 'ERROR';
-  const REGISTER = 'REGISTER';
-  const REGISTERACK = 'REGISTERACK';
-  const CHAT = 'CHAT';
 
   /*
    * Helper methods
@@ -24,6 +17,18 @@
   });
 
   /*
+   * OP codes
+   */
+  const ERROR = 'ERROR';
+  const REGISTER = 'REGISTER';
+  const REGISTERACK = 'REGISTERACK';
+  const ENTER_WORLD = 'ENTER_WORLD';
+  const ENTER_WORLD_ACK = 'ENTER_WORLD_ACK';
+  const NEW_PLAYER = 'NEW_PLAYER';
+  const CHAT = 'CHAT';
+  const MOVE_TO = 'MOVE_TO';
+
+  /*
    * the module
    */
   const OP = {
@@ -32,7 +37,11 @@
     ERROR,
     REGISTER,
     REGISTERACK,
+    ENTER_WORLD,
+    ENTER_WORLD_ACK,
+    NEW_PLAYER,
     CHAT,
+    MOVE_TO,
   };
 
   /* Make this module available to Node and Browser */

@@ -102,15 +102,12 @@
     onClientClose : () => {
       Game.States.Registration.game.state.start( Game.States.Disconnected.STATE_KEY );
     },
-    update : () => {
-
-    },
-    shutdown : () => {
+    shutdown : function(){
       document.body.removeChild(formContainer);
-      Game.WS.Client.removeEventListener(WS.Event.message, this.onClientMessage);
-      Game.WS.Client.removeEventListener(WS.Event.open, this.onClientConnect);
-      Game.WS.Client.removeEventListener(WS.Event.error, this.onClientError);
-      Game.WS.Client.removeEventListener(WS.Event.close, this.onClientClose);
+      WS.Client.removeEventListener(WS.Event.message, this.onClientMessage);
+      WS.Client.removeEventListener(WS.Event.open, this.onClientConnect);
+      WS.Client.removeEventListener(WS.Event.error, this.onClientError);
+      WS.Client.removeEventListener(WS.Event.close, this.onClientClose);
     },
   });
 

@@ -28,7 +28,13 @@
     Send : {
       Register : (username, avatarId) => {
         Game.WS.Client.send( OP.create( OP.REGISTER, { username, avatarId } ) );
-      }
+      },
+      MoveTo : position => {
+        Game.WS.Client.send( OP.create( OP.MOVE_TO, position ) );
+      },
+      EnterWorld : _ => {
+        Game.WS.Client.send( OP.create( OP.ENTER_WORLD ) );
+      },
     }
   };
 
