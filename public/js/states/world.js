@@ -106,6 +106,9 @@
     playerMove : function({ username, position  }) {
       this.players.get(username).moveTo(position);
     },
+    playerStopMoving : function({ username, x, y }) {
+      this.players.get(username).forceSetPosition(x, y);
+    },
     playerChat : function({ username, message }) {
       if(username === this.player.username){
         this.player.chat(message);
@@ -135,6 +138,9 @@
           break;
         case OP.MOVE_TO:
           Game.States.World.playerMove(msg.payload);
+          break;
+        case OP.STOP_MOVING:
+          Game.States.World.playerStopMoving(msg.payload);
           break;
         case OP.CHAT:
           Game.States.World.playerChat(msg.payload);

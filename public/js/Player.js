@@ -27,6 +27,7 @@
       this.destination = null;
       this.sprite = this.game.add.sprite(x, y, `graphic-${this.avatarId}`);
       this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
+      this.sprite.body.immovable = true;
       this.usernameText = new Phaser.Text(this.game, -10, -16, this.username, { fontSize:'14px', fill: '#F0F3F0', boundsAlignH : 'center', boundsAlignV : 'center' });
       this.chatText = new Phaser.Text(this.game, -50, 36, '', { fontSize:'16px', fill: '#F0F0F9', fontWeight: 'normal', boundsAlignH : 'center', boundsAlignV : 'center' });
       this.usernameText.setTextBounds(-20, -12, 100, 12);
@@ -55,7 +56,20 @@
       }, this);
       timer.start();
     }
+    forceSetPosition(x, y){
+      // ( {x, y} = {x:x-this.sprite.width/2, y:y-this.sprite.width/2} );
+      this.sprite.x = x;
+      this.sprite.y = y;
+      this.stopMoving();
+    }
     update(){
+
+      let touchingPlayer = this.game.physics.arcade.collide(this.sprite, Game.playersGroup);
+      if(touchingPlayer){
+        this.stopMoving();
+        // send OP:STOP_MOVING
+        WS.Send.StopMoving(this.username, this.sprite);
+      }
 
       if( this.destination !== null ){
         var dist = this.game.physics.arcade.distanceToXY(this.sprite, this.destination.x, this.destination.y);

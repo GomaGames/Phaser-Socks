@@ -32,6 +32,9 @@
       MoveTo : position => {
         Game.WS.Client.send( OP.create( OP.MOVE_TO, position ) );
       },
+      StopMoving : (username, { x, y }) => {
+        Game.WS.Client.send( OP.create( OP.STOP_MOVING, {username, x, y} ) );
+      },
       EnterWorld : _ => {
         Game.WS.Client.send( OP.create( OP.ENTER_WORLD ) );
       },

@@ -28,6 +28,7 @@
   const REMOVE_PLAYER = 'REMOVE_PLAYER';
   const CHAT = 'CHAT';
   const MOVE_TO = 'MOVE_TO';
+  const STOP_MOVING = 'STOP_MOVING';
 
   /*
    * the module
@@ -44,6 +45,7 @@
     REMOVE_PLAYER,
     CHAT,
     MOVE_TO,
+    STOP_MOVING,
   };
 
   /* Make this module available to Node and Browser */
