@@ -20,6 +20,7 @@
       const assets = [
         'bg',
         'game_wall',
+        'person-01',
         'person-02',
         'person-03',
         'person-04',
@@ -29,13 +30,18 @@
         'person-08',
         'person-09',
         'person-10',
-        'person-25',
-        'person-26',
-        'person-30',
-        'person-33',
-        'person-34',
-        'person-38',
-        'person-39'
+        'person-11',
+        'person-12',
+        'person-13',
+        'person-14',
+        'person-15',
+        'person-16',
+        'person-17',
+        'person-18',
+        'person-19',
+        'person-20',
+        'person-21',
+        'person-22'
       ];
       this.game.load.path = 'assets/';
       this.game.load.images(assets);

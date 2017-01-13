@@ -29,8 +29,8 @@
       this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
       this.usernameText = new Phaser.Text(this.game, -10, -16, this.username, { fontSize:'14px', fill: '#F0F3F0', boundsAlignH : 'center', boundsAlignV : 'center' });
       this.chatText = new Phaser.Text(this.game, -50, 36, '', { fontSize:'16px', fill: '#F0F0F9', fontWeight: 'normal', boundsAlignH : 'center', boundsAlignV : 'center' });
-      this.usernameText.setTextBounds(-20, -12, 100, 12);
-      this.chatText.setTextBounds(-80, 16, 310, 36);
+      this.usernameText.setTextBounds(-20, -12, 130, 12);
+      this.chatText.setTextBounds(-80, 40, 330, 36);
       this.sprite.addChild(this.usernameText);
       this.sprite.addChild(this.chatText);
 
